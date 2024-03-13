@@ -1,24 +1,45 @@
-# model-validation-example
-This is an example of the model validation repository for the Outreachy contributors 2024
+# Classification of hERG blockers and nonblockers
 
-## Repository organisation
-The repository is organised in folders:
-- '/notebooks' contains the jupyter notebooks where most of the work is being developed
-- '/data' contains all the .csv files. Model predictions are obtained outside this repository and saved in this folder. Subfolders might be created if needed
-- '/src' contains important functions I will re-use throughout the repository, to avoid typing them each time
-- '/figures' contains the plots I have produced during the model validation process
-- 'requirements.txt' lists all the required packages to run the notebooks in this repository. If possible I also specify the version of the package I am using.
+This model used a multitask deep neural network (DNN) to predict the probability that a molecule is a hERG blocker. It was trained using 7889 compounds with experimental data available (% of hERG inhibition). The checkpoints of the pretrained model were not available, therefore we re-trained the model using a simple KerasTuner. Molecule featurization was done with Morgan fingerprints.
 
-## How to use this repository
-This repository is just a guideline, it does not contain any real example, hence some folders might not be existing yet. There are mostly placeholders to inspire you.
+## Identifiers
 
-Use the notebooks as they have been defined, there is a code block with instructions of what step should be done there. Remember to install and import all the necessayr packages. Do not use installs from the Notebook directly, create a conda environment and install the packages in that environment. 
+* EOS model ID: `eos30gr`
+* Slug: `deepherg`
 
-## Where to get more help:
-- Read Outreachy's contribution [tasks](https://ersilia.gitbook.io/ersilia-book/contributors/internships/outreachy-summer-2024)
-- Read Ersilia's [documentation](https://ersilia.gitbook.io/ersilia-book)
-- Get inspiration from Ersilia's work, for example on this repository for [data processing](https://github.com/ersilia-os/open-data-cleaning)
-- Use Slack to ask the mentors and the other interns for help!
+## Characteristics
+
+* Input: `Compound`
+* Input Shape: `Single`
+* Task: `Classification`
+* Output: `Probability`
+* Output Type: `Float`
+* Output Shape: `Single`
+* Interpretation: Probability of hERG blockade. The training dataset used a threshold of 80% inhibition to define hERG blockers.
+
+## References
+
+* [Publication](https://pubs.acs.org/doi/full/10.1021/acs.jcim.8b00769)
+* [Source Code](https://github.com/ChengF-Lab/deephERG)
+* Ersilia contributor: [azycn](https://github.com/azycn)
+
+## Ersilia model URLs
+* [GitHub](https://github.com/ersilia-os/eos30gr)
+* [AWS S3](https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos30gr.zip)
+* [DockerHub](https://hub.docker.com/r/ersiliaos/eos30gr) (AMD64, ARM64)
+
+## Citation
+
+If you use this model, please cite the [original authors](https://pubs.acs.org/doi/full/10.1021/acs.jcim.8b00769) of the model and the [Ersilia Model Hub](https://github.com/ersilia-os/ersilia/blob/master/CITATION.cff).
 
 ## License
-All the code in this repository is licensed under a GPLv3 License.
+
+This package is licensed under a GPL-3.0 license. The model contained within this package is licensed under a None license.
+
+Notice: Ersilia grants access to these models 'as is' provided by the original authors, please refer to the original code repository and/or publication if you use the model in your research.
+
+## About Us
+
+The [Ersilia Open Source Initiative](https://ersilia.io) is a Non Profit Organization ([1192266](https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5170657/full-print)) with the mission is to equip labs, universities and clinics in LMIC with AI/ML tools for infectious disease research.
+
+[Help us](https://www.ersilia.io/donate) achieve our mission!
